@@ -1,0 +1,29 @@
+{
+  "name": "react-hook-format",
+  "version": "1.0.0",
+  "description": "Simplify number and field formatting in JavaScript with React Hook Format. A lightweight and flexible library that provides an uncomplicated way to format and present data consistently. Effortlessly transform your formatting operations, making data manipulation a swift and efficient task.",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/node": "^20.11.0",
+    "@types/react": "^18.2.47",
+    "react": "^18.2.0",
+    "rollup": "^4.9.5",
+    "rollup-plugin-dts": "^6.1.0",
+    "tslib": "^2.6.2",
+    "typescript": "^5.3.3"
+  },
+  "keywords": [],
+  "author": {
+    "name": "Code From Human | Wallace Melo",
+    "email": "wallacegmelo@codefromhuman.org.br",
+    "url": "https://codefromhuman.org.br/supporters/wallacegmelo"
+  },
+  "license": "ISC"
+}
