@@ -1,36 +1,31 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent } from 'react';
 
-export const useFormat = () => {
-  const pattern = (name: string, formatPattern: string) => {
-    const applyPattern = () => {
-      const inputElement = document.getElementsByName(name)[0] as HTMLInputElement;
+export const useFormat = <T>() => {
+	const pattern = (name: keyof T, formatPattern: string) => {
+		const applyPattern = () => {
+			const inputElement = document.getElementsByName(
+				String(name)
+			)[0] as HTMLInputElement;
 
-      if (!inputElement || !inputElement.value) return '';
+			if (!inputElement || !inputElement.value) return '';
 
-      const formattedValue = String(inputElement.value).replace(/\D/g, '');
-      let result = '';
-      let valueIndex = 0;
+			const formattedValue = String(inputElement.value).replace(/\D/g, '');
 
-      for (const char of formatPattern) {
-        if (char === '#') {
-          result += formattedValue[valueIndex] || '';
-          valueIndex += 1;
-        } else {
-          result += char;
-        }
-      }
+			return formatPattern.split('').reduce((result, char) => {
+				return (
+					result +
+					(char === '#' ? formattedValue.charAt(result.length) || '' : char)
+				);
+			}, '');
+		};
 
-      return result;
-    };
+		return {
+			name,
+			onChange: (e: ChangeEvent<HTMLInputElement>) => {
+				e.target.value = applyPattern();
+			},
+		};
+	};
 
-    return {
-      name,
-      value: applyPattern(),
-      onChange: (e: ChangeEvent<HTMLInputElement>) => {
-        e.target.value = applyPattern();
-      },
-    };
-  };
-
-  return { pattern };
+	return { pattern };
 };

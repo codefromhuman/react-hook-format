@@ -6,11 +6,11 @@
 	"module": "dist/esm/index.js",
 	"types": "./dist/index.d.ts",
 	"scripts": {
-		"publish": "npm publish --access public",
-		"build": "rollup -c",
-		"lint": "eslint ./**/*.ts",
-		"lint-fix": "eslint ./**/*.ts --fix",
-		"format": "prettier --write \"**/*.{js,jsx,json,md}\""
+		"lib:publish": "npm publish --no-git-checks",
+		"lib:build": "rollup -c",
+		"lib:lint": "eslint ./**/*.ts",
+		"lib:lint-fix": "eslint ./**/*.ts --fix",
+		"lib:format": "prettier --write \"**/*.{js,jsx,json,md}\""
 	},
 	"devDependencies": {
 		"@rollup/plugin-commonjs": "^25.0.7",
