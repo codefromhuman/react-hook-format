@@ -1,11 +1,12 @@
 {
 	"name": "react-hook-format",
-	"version": "1.0.8",
+	"version": "1.0.9",
 	"description": "Simplify number and field formatting in JavaScript with React Hook Format. A lightweight and flexible library that provides an uncomplicated way to format and present data consistently. Effortlessly transform your formatting operations, making data manipulation a swift and efficient task.",
 	"main": "dist/cjs/index.js",
 	"module": "dist/esm/index.js",
 	"types": "./dist/index.d.ts",
 	"scripts": {
+		"publish": "npm publish --access public",
 		"build": "rollup -c",
 		"lint": "eslint ./**/*.ts",
 		"lint-fix": "eslint ./**/*.ts --fix",
