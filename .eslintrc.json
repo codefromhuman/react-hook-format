@@ -14,10 +14,25 @@
 		"ecmaVersion": "latest",
 		"sourceType": "module"
 	},
-	"plugins": ["@typescript-eslint", "react", "prettier"],
-	"ignorePatterns": ["*.test.js", "*.test.tsx"],
+	"plugins": [
+		"@typescript-eslint",
+		"react",
+		"prettier"
+	],
+	"ignorePatterns": [
+		"*.test.js",
+		"*.test.tsx"
+	],
 	"rules": {
-		"react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+		"react/jsx-filename-extension": [
+			1,
+			{
+				"extensions": [
+					".js",
+					".jsx"
+				]
+			}
+		],
 		"react/react-in-jsx-scope": "off"
-	}
+	},
 }

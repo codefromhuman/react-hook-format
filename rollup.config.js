@@ -27,8 +27,8 @@ module.exports = [
 		],
 	},
 	{
-		input: 'dist/esm/types/index.d.ts',
-		output: [{ file: 'dist/index.d.ts', format: 'esm' }],
+		input: './dist/esm/types/index.d.ts',
+		output: [{ file: './dist/index.d.ts', format: 'esm' }],
 		plugins: [dts.default()],
 	},
 ];
