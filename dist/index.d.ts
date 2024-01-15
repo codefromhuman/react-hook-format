@@ -1,11 +1,8 @@
-import { ChangeEvent } from 'react';
+import { InputHTMLAttributes } from 'react';
 
 declare const useFormat: () => {
-    pattern: (name: string, formatPattern: string) => {
-        name: string;
-        value: string;
-        onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-    };
+    pattern: (formatPattern: string) => InputHTMLAttributes<HTMLInputElement>;
+    numeric: () => InputHTMLAttributes<HTMLInputElement>;
 };
 
 export { useFormat };

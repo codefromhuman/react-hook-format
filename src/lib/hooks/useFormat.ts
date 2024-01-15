@@ -1,31 +1,40 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, InputHTMLAttributes } from 'react';
 
-export const useFormat = <T>() => {
-	const pattern = (name: keyof T, formatPattern: string) => {
-		const applyPattern = () => {
-			const inputElement = document.getElementsByName(
-				String(name)
-			)[0] as HTMLInputElement;
+export const useFormat = () => {
+	const pattern = (
+		formatPattern: string
+	): InputHTMLAttributes<HTMLInputElement> => {
+		const applyPattern = (e: React.KeyboardEvent<HTMLInputElement>) => {
+			const newValue = e.currentTarget.value;
 
-			if (!inputElement || !inputElement.value) return '';
+			const formattedValue = String(newValue).replace(/\D/g, '');
 
-			const formattedValue = String(inputElement.value).replace(/\D/g, '');
+			let result = '';
+			let valueIndex = 0;
 
-			return formatPattern.split('').reduce((result, char) => {
-				return (
-					result +
-					(char === '#' ? formattedValue.charAt(result.length) || '' : char)
-				);
-			}, '');
+			for (const char of formatPattern) {
+				if (char === '#' && formattedValue[valueIndex] !== undefined) {
+					result += formattedValue[valueIndex];
+					valueIndex += 1;
+				} else if (char !== '#') {
+					result += char;
+				}
+			}
+
+			if (e.key !== 'Backspace') e.currentTarget.value = result;
 		};
 
-		return {
-			name,
-			onChange: (e: ChangeEvent<HTMLInputElement>) => {
-				e.target.value = applyPattern();
-			},
-		};
+		return { onKeyUp: applyPattern, maxLength: formatPattern.length };
 	};
 
-	return { pattern };
+	const numeric = (): InputHTMLAttributes<HTMLInputElement> => {
+		const applyPattern = (e: ChangeEvent<HTMLInputElement>) => {
+			const formattedValue = String(e.target.value).replace(/[^\d.,]/g, '');
+			e.target.value = String(formattedValue);
+		};
+
+		return { onChange: applyPattern };
+	};
+
+	return { pattern, numeric };
 };

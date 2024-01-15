@@ -1,35 +1,35 @@
 'use strict';
 
 var useFormat = function () {
-    var pattern = function (name, formatPattern) {
-        var applyPattern = function () {
-            var inputElement = document.getElementsByName(name)[0];
-            if (!inputElement || !inputElement.value)
-                return '';
-            var formattedValue = String(inputElement.value).replace(/\D/g, '');
+    var pattern = function (formatPattern) {
+        var applyPattern = function (e) {
+            var newValue = e.currentTarget.value;
+            var formattedValue = String(newValue).replace(/\D/g, '');
             var result = '';
             var valueIndex = 0;
             for (var _i = 0, formatPattern_1 = formatPattern; _i < formatPattern_1.length; _i++) {
                 var char = formatPattern_1[_i];
-                if (char === '#') {
-                    result += formattedValue[valueIndex] || '';
+                if (char === '#' && formattedValue[valueIndex] !== undefined) {
+                    result += formattedValue[valueIndex];
                     valueIndex += 1;
                 }
-                else {
+                else if (char !== '#') {
                     result += char;
                 }
             }
-            return result;
+            if (e.key !== 'Backspace')
+                e.currentTarget.value = result;
         };
-        return {
-            name: name,
-            value: applyPattern(),
-            onChange: function (e) {
-                e.target.value = applyPattern();
-            },
-        };
+        return { onKeyUp: applyPattern, maxLength: formatPattern.length };
     };
-    return { pattern: pattern };
+    var numeric = function () {
+        var applyPattern = function (e) {
+            var formattedValue = String(e.target.value).replace(/[^\d.,]/g, '');
+            e.target.value = String(formattedValue);
+        };
+        return { onChange: applyPattern };
+    };
+    return { pattern: pattern, numeric: numeric };
 };
 
 exports.useFormat = useFormat;
