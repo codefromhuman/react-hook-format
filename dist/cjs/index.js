@@ -7,13 +7,23 @@ var useFormat = function () {
             if (!inputElement || !inputElement.value)
                 return '';
             var formattedValue = String(inputElement.value).replace(/\D/g, '');
-            return formatPattern
-                .split('')
-                .map(function (char) { return (char === '#' ? formattedValue.charAt(0) || '' : char); })
-                .join('');
+            var result = '';
+            var valueIndex = 0;
+            for (var _i = 0, formatPattern_1 = formatPattern; _i < formatPattern_1.length; _i++) {
+                var char = formatPattern_1[_i];
+                if (char === '#') {
+                    result += formattedValue[valueIndex] || '';
+                    valueIndex += 1;
+                }
+                else {
+                    result += char;
+                }
+            }
+            return result;
         };
         return {
             name: name,
+            value: applyPattern(),
             onChange: function (e) {
                 e.target.value = applyPattern();
             },
