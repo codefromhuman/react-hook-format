@@ -1,27 +1,27 @@
-import { ChangeEvent, InputHTMLAttributes } from "react";
+import { ChangeEvent } from "react";
 
 export const useFormat = () => {
-  const pattern = (name: string, pattern: string) => {
-    const applyPattern = (value: string) => {
-      const formattedValue = value.replace(/\D/g, '');
+  const pattern = (name: string, formatPattern: string) => {
+    const applyPattern = () => {
+      const inputElement = document.getElementsByName(name)[0] as HTMLInputElement;
 
-      return pattern
+      if (!inputElement || !inputElement.value) return '';
+
+      const formattedValue = String(inputElement.value).replace(/\D/g, '');
+
+      return formatPattern
         .split('')
         .map((char) => (char === '#' ? formattedValue.charAt(0) || '' : char))
         .join('');
-    }
-
-    const inputElement = document.getElementsByName(name) as InputHTMLAttributes<HTMLInputElement>;
-
-    const newValue = applyPattern(String(inputElement.value));
+    };
 
     return {
-      value: newValue,
+      name,
       onChange: (e: ChangeEvent<HTMLInputElement>) => {
-        e.target.value = applyPattern(String(inputElement.value))
-      }
-    }
-  }
+        e.target.value = applyPattern();
+      },
+    };
+  };
 
-  return ({ pattern })
-}
+  return { pattern };
+};

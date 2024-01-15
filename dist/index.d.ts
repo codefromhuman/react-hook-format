@@ -1,12 +1,10 @@
-import React, { InputHTMLAttributes } from 'react';
+import { ChangeEvent } from 'react';
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
-    label: string;
-}
-declare function ButtonRoot(props: Props): React.JSX.Element;
-
-declare const Button: {
-    Root: typeof ButtonRoot;
+declare const useFormat: () => {
+    pattern: (name: string, pattern: string) => {
+        name: string;
+        onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+    };
 };
 
-export { Button };
+export { useFormat };
