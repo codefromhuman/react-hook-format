@@ -18,6 +18,8 @@ export const useFormat = () => {
 				if (char === '#' && formattedValue[valueIndex] !== undefined) {
 					result += formattedValue[valueIndex];
 					valueIndex += 1;
+				} else if (char === '#' && !formattedValue[valueIndex]) {
+					break;
 				} else if (char !== '#') {
 					result += char;
 				}
