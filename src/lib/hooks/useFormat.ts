@@ -5,6 +5,8 @@ export const useFormat = () => {
 		formatPattern: string
 	): InputHTMLAttributes<HTMLInputElement> => {
 		const applyPattern = (e: React.KeyboardEvent<HTMLInputElement>) => {
+			if (e.key === 'Backspace') return;
+
 			const newValue = e.currentTarget.value;
 
 			const formattedValue = String(newValue).replace(/\D/g, '');
@@ -16,12 +18,14 @@ export const useFormat = () => {
 				if (char === '#' && formattedValue[valueIndex] !== undefined) {
 					result += formattedValue[valueIndex];
 					valueIndex += 1;
+				} else if (char === '#' && !formattedValue[valueIndex]) {
+					break;
 				} else if (char !== '#') {
 					result += char;
 				}
 			}
 
-			if (e.key !== 'Backspace') e.currentTarget.value = result;
+			e.currentTarget.value = result;
 		};
 
 		return { onKeyUp: applyPattern, maxLength: formatPattern.length };
